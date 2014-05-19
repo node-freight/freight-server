@@ -1,5 +1,4 @@
 node_modules
-storage
 dump.rdb
 npm-debug
 config/*.json
