@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    div.container
+        div.jumbotron.intro
+            h1 Freight Server
+            img.logo(src='/static/img/logo.png', alt='Freight Server')
+        hr
+        p
+            a.btn.btn-primary.btn-info(href='/freights/active') View Freight Queue
+            a.btn.btn-primary.btn(href='http://github.com/vladikoff/freight') About Freight
+        blockquote
+            p
+                | I have #{files.length} bundle(s) at the moment and I'm using around #{process.heap} of memory.
+            small
+                | Freight Server
+        h1 Bundles
+        table.table.table-striped.table-hover
+            thead
+                tr
+                    th Bundle Name
+                    th Created
+                    th Size
+                    th File
+            tbody
+                for file in files
+                    tr
+                        td
+                            strong=file.name
+                        td=file.details.ctime
+                        td=file.details.size
+                        td
+                            a.btn.btn-sm.btn-warning(type='button', href='/ui/delete/#{file.name}') Delete
+                            a.btn.btn-sm.btn-success(type='button', href='#{file.details.download}') Download

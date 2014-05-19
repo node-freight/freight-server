@@ -1,0 +1,11 @@
+.intro h1{
+  float: left;
+}
+.intro {
+  overflow: hidden;
+}
+
+.logo {
+  float: right;
+  width: 150px;
+}
