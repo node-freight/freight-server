@@ -10,11 +10,18 @@ module.exports = function () {
   require('./autoconfig')();
 
   var conf = convict({
+    // TODO: this option does not matter right now.
     env: {
       doc: "The applicaton environment.",
       format: ["production", "development", "test"],
       default: "development",
       env: "NODE_ENV"
+    },
+    log: {
+      level: {
+        default: 'info',
+        env: 'LOG_LEVEL'
+      }
     },
     ip: {
       doc: "The IP address to bind.",
@@ -34,9 +41,10 @@ module.exports = function () {
       default: ''
     },
     storage: {
-      doc: "Default bundle storage directory.",
+      // TODO: You need to create this directory if it does not exist.
+      // This directory is also used as a static file directory for Freight bundles.
+      doc: "Default bundle storage directory. Make sure it is somewhere in the Freight Server directory.",
       format: String,
-      // TODO: Don't change this yet, changing this might break things, not tested!
       default: 'storage'
     },
     // Redis config, see https://github.com/learnboost/kue#redis-connection-settings
@@ -64,15 +72,12 @@ module.exports = function () {
     }
   });
 
-
-// load environment dependent configuration
-//var env = conf.get('env');
+  // load environment dependent configuration
+  //var env = conf.get('env');
   var env = 'development';
-// TODO: development only for now, change it later.
+  // TODO: development only for now, change it later.
   conf.loadFile('./config/' + env + '.json');
-
-// perform validation
-
+  // perform configuration validation
   conf.validate();
 
   return conf;

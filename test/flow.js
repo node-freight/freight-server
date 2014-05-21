@@ -3,7 +3,7 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
 
-exports['flow'] = {
+exports.flow = {
   'basic npm only': function (test) {
     test.expect(5);
 

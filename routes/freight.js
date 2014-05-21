@@ -3,9 +3,9 @@ var crypto = require('crypto');
 var fs = require('fs');
 var path = require('path');
 
-module.exports = function (conf, app) {
+module.exports = function (log, conf) {
 
-  var freighter = require('../lib/freighter')(conf);
+  var freighter = require('../lib/freighter')(log, conf);
   var FreightRoutes = {};
 
   FreightRoutes.check = function (req, res) {
@@ -25,8 +25,7 @@ module.exports = function (conf, app) {
       // temp storage directory where things install to
       project.tempPath = path.join(project.storageDir, project.hash);
 
-      console.log(project);
-      console.log(extra);
+      log.debug('Incoming Project', project, extra);
 
       project.npmInstall = [];
 
