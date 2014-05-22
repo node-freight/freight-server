@@ -1,6 +1,6 @@
 <p align="center"><img src="http://v14d.com/freight/freight-250.png" height="150" /></p>
 # Freight Server
-### Lear more about [Freight](https://github.com/vladikoff/freight).
+### Learn more about [Freight](https://github.com/vladikoff/freight).
 
 ### Server Quick Setup
 
