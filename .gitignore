@@ -2,6 +2,7 @@ node_modules
 dump.rdb
 npm-debug
 config/*.json
+!config/test.json
 test/fixtures/project1/node_modules
 test/fixtures/project2/node_modules
 test/fixtures/project2/bower_components
