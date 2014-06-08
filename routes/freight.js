@@ -22,26 +22,11 @@ module.exports = function (log, conf) {
       project.storageDir = conf.get('storage');
       // path where tar.gz will be saved
       project.bundlePath = path.join(project.storageDir, project.name + '-' + project.hash + '.tar.gz');
+      project.productionBundlePath = path.join(project.storageDir, project.name + '-production-' + project.hash + '.tar.gz');
       // temp storage directory where things install to
       project.tempPath = path.join(project.storageDir, project.hash);
 
       log.debug('Incoming Project', project, extra);
-
-      project.npmInstall = [];
-
-      // TODO: refactor
-      if (project.npm) {
-        if (project.npm.dependencies) {
-          Object.keys(project.npm.dependencies).forEach(function (key) {
-            project.npmInstall.push({ name: key, version: project.npm.dependencies[key] });
-          });
-        }
-        if (project.npm.devDependencies) {
-          Object.keys(project.npm.devDependencies).forEach(function (key) {
-            project.npmInstall.push({ name: key, version: project.npm.devDependencies[key] });
-          });
-        }
-      }
 
       // check if Freight file exists
       fs.exists(project.bundlePath, function (bundleExists) {
@@ -73,16 +58,25 @@ module.exports = function (log, conf) {
   };
 
   FreightRoutes.download = function (req, res) {
-    console.log('download');
-
+    log.debug('Download request', req.body);
     if (req.body.hash) {
       var hashFile = path.join(conf.get('storage'), req.body.name + '-' + req.body.hash + '.tar.gz');
+      if (req.body.options && req.body.options.production === 'true') {
+        hashFile = path.join(conf.get('storage'), req.body.name + '-production-' + req.body.hash + '.tar.gz');
+      }
 
-      fs.exists(hashFile, function () {
-        res.sendfile(hashFile);
+      fs.exists(hashFile, function (exists) {
+        if (exists) {
+          log.debug('Download bundle:', hashFile);
+          return res.sendfile(hashFile);
+        } else {
+          log.debug('Bundle does not exist:', hashFile);
+          return res.send(404);
+        }
       });
     } else {
-      res.send(404);
+      log.debug('Hash not set.');
+      return res.send(404);
     }
 
   };

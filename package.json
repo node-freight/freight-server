@@ -17,10 +17,11 @@
     "kue": "^0.7.7",
     "mkdirp": "^0.5.0",
     "moment": "^2.6.0",
-    "npmi": "0.0.8",
     "rimraf": "^2.2.8",
     "serve-favicon": "^2.0.0",
-    "tar.gz": "^0.1.1"
+    "tar.gz": "^0.1.1",
+    "npm": "^1.4.14",
+    "bluebird": "~2.0.6"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
