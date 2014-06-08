@@ -7,14 +7,14 @@ var convict = require('convict');
 module.exports = function () {
 
   // Check if we need to auto configure for a fast start.
-  require('./autoconfig')();
+  var env = process.env.NODE_ENV || 'dev';
+  require('./autoconfig')(env);
 
   var conf = convict({
-    // TODO: this option does not matter right now.
     env: {
       doc: "The applicaton environment.",
-      format: ["production", "development", "test"],
-      default: "development",
+      format: [ "dev", "test", "stage", "prod", "production" ],
+      default: "dev",
       env: "NODE_ENV"
     },
     log: {
@@ -73,8 +73,6 @@ module.exports = function () {
   });
 
   // load environment dependent configuration
-  //var env = conf.get('env');
-  var env = 'development';
   // TODO: development only for now, change it later.
   conf.loadFile('./config/' + env + '.json');
   // perform configuration validation
