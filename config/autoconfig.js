@@ -7,6 +7,7 @@ module.exports = function () {
     var buf = crypto.randomBytes(256);
     var hash = crypto.createHash('sha1').update(buf).digest('hex');
 
+    // TODO: refactor
     console.log('***** NOTICE ****** \n');
     console.log('You are missing "config/development.json"');
     console.log('Creating a configuration automatically for you....');

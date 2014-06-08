@@ -1,23 +1,24 @@
+var path = require('path');
+
 var conf = require('./config/config')();
+var log = require('./lib/log')(conf);
 
 var express = require('express');
-var path = require('path');
 var bodyParser = require('body-parser');
 var kue = require('kue');
-var auth = require('http-auth');
 
-var index = require('./routes/index')(conf);
-var bundleDelete = require('./routes/bundle_delete')(conf);
-var freightRoutes = require('./routes/freight')(conf);
-var freightAuth = require('./lib/auth')(conf);
+var index = require('./routes/index')(log, conf);
+var bundleDelete = require('./routes/bundle_delete')(log, conf);
+var freightRoutes = require('./routes/freight')(log, conf);
+var freightAuth = require('./lib/auth')(log, conf);
 
 var app = express();
 app.conf = conf;
+app.log = log;
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(express.logger('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 

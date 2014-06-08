@@ -1,9 +1,7 @@
 #!/usr/bin/env node
-
 var app = require('../app');
-
-app.set('port', process.env.PORT || app.conf.get('port'));
+app.set('port', app.conf.get('port'));
 
 var server = app.listen(app.get('port'), function() {
-  console.log('Freight server listening on port ' + server.address().port);
+  app.log.info('Freight Server is now running port', server.address().port);
 });

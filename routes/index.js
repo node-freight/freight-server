@@ -4,7 +4,7 @@ var async = require('async');
 var path = require('path');
 var moment = require('moment');
 
-module.exports = function (conf) {
+module.exports = function (log, conf) {
 
   // TODO: refactor this view
   return function (req, res) {
@@ -33,7 +33,10 @@ module.exports = function (conf) {
           });
         },
         function (err, results) {
-          if (err) throw err;
+          if (err) {
+            log.error('Failed to get statistics on all bundle files');
+            throw err;
+          }
 
           data.files = results;
           res.render('index', data);

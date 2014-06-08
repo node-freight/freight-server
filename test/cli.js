@@ -1,8 +1,6 @@
-'use strict';
-
 var exec = require('child_process').exec;
 
-exports['cli'] = {
+exports.cli = {
   'freight': function (test) {
     test.expect(1);
 

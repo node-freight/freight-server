@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 
-module.exports = function (conf) {
+module.exports = function (log, conf) {
 
   // TODO: refactor this view
   return function (req, res) {
