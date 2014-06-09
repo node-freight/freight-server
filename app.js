@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded());
 
 app.post('/freight/check', freightRoutes.check);
 app.post('/freight/download', freightRoutes.download);
+app.post('/freight/track', freightRoutes.track);
 
 app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use('/storage', express.static(path.join(__dirname, conf.get('storage'))));

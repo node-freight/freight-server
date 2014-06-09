@@ -21,7 +21,8 @@
     "serve-favicon": "^2.0.0",
     "tar.gz": "^0.1.1",
     "npm": "^1.4.14",
-    "bluebird": "~2.0.6"
+    "bluebird": "~2.0.6",
+    "freight": "~0.1.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

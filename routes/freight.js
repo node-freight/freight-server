@@ -1,4 +1,3 @@
-var express = require('express');
 var crypto = require('crypto');
 var fs = require('fs');
 var path = require('path');
@@ -6,55 +5,54 @@ var path = require('path');
 module.exports = function (log, conf) {
 
   var freighter = require('../lib/freighter')(log, conf);
+  var tracker = require('../lib/tracker')(log, conf);
   var FreightRoutes = {};
 
   FreightRoutes.check = function (req, res) {
-    // TODO: refactor
     if (!req.body && !req.body.project && !req.body.project.name) {
-      res.send(404);
-    } else {
-
-      var project = req.body.project;
-      var extra = req.body.extra;
-      // TODO: Switch to something else or keep md5?
-      project.hash = crypto.createHash('md5').update(JSON.stringify(project)).digest('hex');
-      // storage directory for projects
-      project.storageDir = conf.get('storage');
-      // path where tar.gz will be saved
-      project.bundlePath = path.join(project.storageDir, project.name + '-' + project.hash + '.tar.gz');
-      project.productionBundlePath = path.join(project.storageDir, project.name + '-production-' + project.hash + '.tar.gz');
-      // temp storage directory where things install to
-      project.tempPath = path.join(project.storageDir, project.hash);
-
-      log.debug('Incoming Project', project, extra);
-
-      // check if Freight file exists
-      fs.exists(project.bundlePath, function (bundleExists) {
-        var response = {
-          creating: false,
-          available: false,
-          authenticated: extra.password === conf.get('password')
-        };
-
-        if (bundleExists) {
-          response.available = true;
-          response.hash = project.hash;
-        }
-
-        if (extra.password === conf.get('password') && extra.create === 'true') {
-          // TODO: delete stale jobs, try again to cache, fail if tries too many times.
-          // TODO: job in progress with the same hash should stop this one.
-          // TODO: restart stale job if timeout > x.
-          if (!bundleExists || extra.force === 'true') {
-            response.creating = true;
-            freighter.create(project, extra);
-          }
-        }
-
-        res.json(response);
-
-      });
+      return res.send(404);
     }
+
+    var project = req.body.project;
+    var extra = req.body.extra;
+    // TODO: Switch to something else or keep md5?
+    project.hash = crypto.createHash('md5').update(JSON.stringify(project)).digest('hex');
+    // storage directory for projects
+    project.storageDir = conf.get('storage');
+    // path where tar.gz will be saved
+    project.bundlePath = path.join(project.storageDir, project.name + '-' + project.hash + '.tar.gz');
+    project.productionBundlePath = path.join(project.storageDir, project.name + '-production-' + project.hash + '.tar.gz');
+    // temp storage directory where things install to
+    project.tempPath = path.join(project.storageDir, project.hash);
+
+    log.debug('Incoming Project', project, extra);
+
+    // check if Freight file exists
+    fs.exists(project.bundlePath, function (bundleExists) {
+      var response = {
+        creating: false,
+        available: false,
+        authenticated: extra.password === conf.get('password')
+      };
+
+      if (bundleExists) {
+        response.available = true;
+        response.hash = project.hash;
+      }
+
+      if (extra.password === conf.get('password') && extra.create === 'true') {
+        // TODO: delete stale jobs, try again to cache, fail if tries too many times.
+        // TODO: job in progress with the same hash should stop this one.
+        // TODO: restart stale job if timeout > x.
+        if (!bundleExists || extra.force === 'true') {
+          response.creating = true;
+          freighter.create(project, extra);
+        }
+      }
+
+      return res.json(response);
+
+    });
   };
 
   FreightRoutes.download = function (req, res) {
@@ -77,6 +75,34 @@ module.exports = function (log, conf) {
     } else {
       log.debug('Hash not set.');
       return res.send(404);
+    }
+
+  };
+
+  FreightRoutes.track = function (req, res) {
+    if (req.body && req.body.repository && req.body.password) {
+      log.debug('New tracking repository:', req.body.repository);
+
+      if (req.body.password !== conf.get('password')) {
+        log.debug('Password does not match');
+        return res.send(403);
+      }
+
+      tracker.create(req.body.repository, function (err) {
+        if (err) {
+          // fetch $REPO, run freight on it
+          // keep fetching the master branch, run freight on it
+          log.debug('Cannot track repository: ', err);
+          return res.send(500);
+        } else {
+          return res.send(200);
+        }
+      });
+
+
+    } else {
+      log.debug('Repository or password not set');
+      return res.send(500);
     }
 
   };

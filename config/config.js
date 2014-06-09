@@ -47,6 +47,12 @@ module.exports = function () {
       format: String,
       default: 'storage'
     },
+    tempDir: {
+      // TODO: You need to create this directory if it does not exist.
+      doc: "Default directory for temporary files.",
+      format: String,
+      default: 'temp'
+    },
     // Redis config, see https://github.com/learnboost/kue#redis-connection-settings
     redis: {
       port: {
