@@ -1,11 +1,20 @@
 var crypto = require('crypto');
 var fs = require('fs');
 var path = require('path');
+var kue = require('kue');
 
 module.exports = function (log, conf) {
 
-  var freighter = require('../lib/freighter')(log, conf);
-  var tracker = require('../lib/tracker')(log, conf);
+  var processor = require('../lib/job_processor')(log);
+  log.debug('Redis Configuration', conf.get('redis'));
+  var jobs = kue.createQueue({
+    redis: conf.get('redis')
+  });
+
+  processor.setup(jobs);
+
+  var freighter = require('../lib/freighter')(log, conf, jobs);
+  var tracker = require('../lib/tracker')(log, conf, jobs);
   var FreightRoutes = {};
 
   FreightRoutes.check = function (req, res) {

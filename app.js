@@ -1,13 +1,11 @@
-var path = require('path');
-
-var conf = require('./config/config')();
-var log = require('./lib/log')(conf);
-// TODO: move this?
-process.env.FREIGHT_PASSWORD = conf.get('password');
-
 var express = require('express');
 var bodyParser = require('body-parser');
+var path = require('path');
+var conf = require('./config/config')();
+var log = require('./lib/log')(conf);
 var kue = require('kue');
+// TODO: move this?
+process.env.FREIGHT_PASSWORD = conf.get('password');
 
 var index = require('./routes/index')(log, conf);
 var bundleDelete = require('./routes/bundle_delete')(log, conf);
