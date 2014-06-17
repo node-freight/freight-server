@@ -9,8 +9,11 @@ module.exports = function (log, conf) {
       fs.unlink(
         path.join(conf.get('storage'), req.params.file),
         function (err) {
-          if (err) throw err;
-          console.log('Bundle Deleted');
+          if (err) {
+            log.error(err);
+          } else {
+            log.info('Bundle Deleted:', req.params.file);
+          }
           res.redirect('/');
         });
     } else {

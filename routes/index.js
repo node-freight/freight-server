@@ -1,5 +1,5 @@
 var fs = require('fs');
-var filesize = require('file-size');
+var filesize = require('filesize');
 var async = require('async');
 var path = require('path');
 var moment = require('moment');
@@ -14,7 +14,7 @@ module.exports = function (log, conf) {
     var data = {
       title: 'Freight Server',
       process: {
-        heap: filesize(memory.heapUsed).human({ si: true })
+        heap: filesize(memory.heapUsed)
       }
     };
 
@@ -24,12 +24,14 @@ module.exports = function (log, conf) {
       async.map(files,
         function (file, complete) {
           fs.stat(path.join(storage, file), function (err, stat) {
-            stat.size = filesize(stat.size).human({ si: true });
+            stat.size = filesize(stat.size);
             stat.download = path.join(storage, file);
             stat.ctime = moment(stat.ctime).format('MMMM Do YYYY, h:mm:ss a');
-
-            complete(err, { name: file, details: stat });
-
+            if (file.indexOf('tar.gz') > -1) {
+              complete(err, { name: file, details: stat });
+            } else {
+              complete(err, {});
+            }
           });
         },
         function (err, results) {
@@ -38,7 +40,15 @@ module.exports = function (log, conf) {
             throw err;
           }
 
-          data.files = results;
+          var bundles = results.filter(function (file) {
+            return file.hasOwnProperty('name');
+          });
+
+          bundles.sort(function(a, b) {
+            return b.details.mtime.getTime() - a.details.mtime.getTime();
+          });
+
+          data.files = bundles;
           res.render('index', data);
         });
     });
