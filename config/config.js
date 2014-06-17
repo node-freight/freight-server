@@ -80,7 +80,7 @@ module.exports = function () {
       delay: {
         doc: 'Repository update check delay in milliseconds',
         format: 'nat',
-        default: 60 * 1000
+        default: 60 * 60000
       }
     }
   });
