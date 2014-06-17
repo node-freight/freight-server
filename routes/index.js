@@ -14,7 +14,7 @@ module.exports = function (log, conf) {
     var data = {
       title: 'Freight Server',
       process: {
-        heap: filesize(memory.rss).human({ si: true })
+        heap: filesize(memory.heapUsed).human({ si: true })
       }
     };
 
