@@ -1,6 +1,6 @@
 {
   "password":"test",
   "track": {
-    "delay": 1000
+    "delay": 20000
   }
 }
