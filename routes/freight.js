@@ -89,15 +89,15 @@ module.exports = function (log, conf) {
   };
 
   FreightRoutes.track = function (req, res) {
-    if (req.body && req.body.repository && req.body.password) {
-      log.debug('New tracking repository:', req.body.repository);
+    if (req.body && req.body.repository && req.body.password && req.body.branch) {
+      log.debug('New tracking repository:', req.body.repository, 'with branch', req.body.branch);
 
       if (req.body.password !== conf.get('password')) {
         log.debug('Password does not match');
         return res.send(403);
       }
 
-      tracker.create(req.body.repository, function (err) {
+      tracker.create(req.body.repository, req.body.branch, function (err) {
         if (err) {
           // fetch $REPO, run freight on it
           // keep fetching the master branch, run freight on it
