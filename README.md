@@ -21,11 +21,11 @@ Server will start on port `8872`. You should be able to navigate to the dashboar
 
 #### Password
 
-Freight Server automatically configures a password for you. You can change it by modifying the [development.json](https://github.com/vladikoff/freight-server/blob/master/config/development.json-dist) file.
+Freight Server automatically configures a password for you. You can change it by modifying the [development.json](config/dev.json-dist) file.
 
 #### Other Configuration
 
-See [config/config.js](https://github.com/vladikoff/freight-server/blob/master/config/config.js#L12) for available 
+See [config/config.js](config/config.js#L12) for available 
 configuration options and environment variables.
 
 ### Author
