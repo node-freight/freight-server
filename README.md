@@ -21,7 +21,7 @@ Server will start on port `8872`. You should be able to navigate to the dashboar
 
 #### Password
 
-Freight Server automatically configures a password for you. You can change it by modifying the [development.json](config/dev.json-dist) file.
+Freight Server automatically configures a password for you. You can change it by modifying the [dev.json](config/dev.json-dist) file.
 
 #### Other Configuration
 
