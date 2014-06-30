@@ -26,7 +26,7 @@ Freight Server automatically configures a password for you. You can change it by
 #### Other Configuration
 
 See [config/config.js](config/config.js#L12) for available 
-configuration options and environment variables.
+configuration options and environment variables. The Freight Server uses [node-convict](https://github.com/mozilla/node-convict) to manage configuration.
 
 ### Author
 
