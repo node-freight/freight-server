@@ -1,8 +1,7 @@
 # Freight Server
 ### Learn more about [Freight](https://github.com/vladikoff/freight).
 
-<img align="right" src="http://v14d.com/freight/freight-logo.png" height="250" />
-
+### Quick Server Setup 
 Install [Redis](http://redis.io/). OS X: `brew install redis` or Ubuntu `sudo apt-get install redis-server`.
 
 Start the server:
