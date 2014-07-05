@@ -2,7 +2,9 @@
 ### Learn more about [Freight](https://github.com/vladikoff/freight).
 
 ### Quick Server Setup 
-Install [Redis](http://redis.io/). OS X: `brew install redis` or Ubuntu `sudo apt-get install redis-server`.
+* Install [Git](http://git-scm.com/) on the server machine. (i.e on Ubuntu: `sudo apt-get install git-core`).
+If you want to `freight track` repositories via SSH, then configure proper SSH keys such that the server is able to clone the repositories. 
+* Install [Redis](http://redis.io/). OS X: `brew install redis` or Ubuntu `sudo apt-get install redis-server`.
 
 Start the server:
 ```
