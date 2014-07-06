@@ -7,10 +7,7 @@ module.exports = function(grunt) {
           src: ['{bin/**/,config/**/,lib/**/,routes/**/,test/}*.js']
         },
         options: {
-          curly: true,
-          eqeqeq: true,
-          eqnull: true,
-          node: true
+          jshintrc: '.jshintrc'
         }
       }
     }

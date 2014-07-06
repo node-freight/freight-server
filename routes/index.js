@@ -19,7 +19,10 @@ module.exports = function (log, conf) {
     };
 
     fs.readdir(storage, function (err, files) {
-      if (err) throw err;
+      if (err) {
+        log.error(err);
+        throw err;
+      }
 
       async.map(files,
         function (file, complete) {

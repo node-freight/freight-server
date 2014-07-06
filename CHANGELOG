@@ -1,3 +1,21 @@
+v0.3.3:
+  date: 2014-07-06
+  changes:
+    - Documentation and bug fixes.
+v0.3.2:
+  date: 2014-06-23
+  changes:
+    - Bug fixes.
+v0.3.1:
+  date: 2014-06-22
+  changes:
+    - Bug fixes.
+v0.3.0:
+  date: 2014-06-22
+  changes:
+    - Adds repository tracking with `freight track`.
+    - Removed `-p` password flag.
+    - Added more docs.
 v0.1.0:
   date: 2014-05-19
   changes:
