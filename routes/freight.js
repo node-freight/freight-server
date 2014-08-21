@@ -15,6 +15,7 @@ module.exports = function (log, conf) {
 
   var freighter = require('../lib/freighter')(log, conf, jobs);
   var tracker = require('../lib/tracker')(log, conf, jobs);
+  var freightAuth = require('../lib/auth')(log, conf);
   var FreightRoutes = {};
 
   FreightRoutes.check = function (req, res) {
@@ -41,7 +42,7 @@ module.exports = function (log, conf) {
       var response = {
         creating: false,
         available: false,
-        authenticated: extra.password === conf.get('password')
+        authenticated: freightAuth.checkPassword(extra.password)
       };
 
       if (bundleExists) {
@@ -49,7 +50,7 @@ module.exports = function (log, conf) {
         response.hash = project.hash;
       }
 
-      if (extra.password === conf.get('password') && extra.create === 'true') {
+      if (freightAuth.checkPassword(extra.password) && extra.create === 'true') {
         // TODO: delete stale jobs, try again to cache, fail if tries too many times.
         // TODO: job in progress with the same hash should stop this one.
         // TODO: restart stale job if timeout > x.
@@ -92,7 +93,7 @@ module.exports = function (log, conf) {
     if (req.body && req.body.repository && req.body.password && req.body.branch) {
       log.debug('Tracking request:', req.body);
 
-      if (req.body.password !== conf.get('password')) {
+      if (!freightAuth.checkPassword(req.body.password)) {
         log.debug('Password does not match');
         return res.send(403);
       }
