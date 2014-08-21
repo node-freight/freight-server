@@ -47,13 +47,13 @@ module.exports = function () {
       // This directory is also used as a static file directory for Freight bundles.
       doc: 'Default bundle storage directory. Make sure it is somewhere in the Freight Server directory.',
       format: String,
-      default: 'storage'
+      default: __dirname + '/../storage'
     },
     tempDir: {
       // TODO: You need to create this directory if it does not exist.
       doc: 'Default directory for temporary files.',
       format: String,
-      default: 'temp'
+      default: __dirname + '/../temp'
     },
     // Redis config, see https://github.com/learnboost/kue#redis-connection-settings
     redis: {
