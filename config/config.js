@@ -8,7 +8,9 @@ module.exports = function () {
 
   // Check if we need to auto configure for a fast start.
   var env = process.env.NODE_ENV || 'dev';
-  require('./autoconfig')(env);
+  var configFile = process.env.FREIGHT_CONFIG || __dirname + '/' + env + '.json';
+
+  require('./autoconfig')(configFile);
 
   var conf = convict({
     env: {
@@ -87,7 +89,7 @@ module.exports = function () {
 
   // load environment dependent configuration
   // TODO: development only for now, change it later.
-  conf.loadFile('./config/' + env + '.json');
+  conf.loadFile(configFile);
   // perform configuration validation
   conf.validate();
 
