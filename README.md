@@ -1,9 +1,9 @@
 # Freight Server
 ### Learn more about [Freight](https://github.com/vladikoff/freight).
 
-### Quick Server Setup 
+### Quick Server Setup
 * Install [Git](http://git-scm.com/) on the server machine. (i.e on Ubuntu: `sudo apt-get install git-core`).
-If you want to `freight track` repositories via SSH, then configure proper SSH keys such that the server is able to clone the repositories. 
+If you want to `freight track` repositories via SSH, then configure proper SSH keys such that the server is able to clone the repositories.
 * Install [Redis](http://redis.io/). OS X: `brew install redis` or Ubuntu `sudo apt-get install redis-server`.
 
 Start the server:
@@ -13,19 +13,21 @@ npm install
 npm start
 ```
 
-Server will start on port `8872`. You should be able to navigate to the dashboard: 
+Server will start on port `8872`. You should be able to navigate to the dashboard:
 
 ![](http://v14d.com/freight/freight-server-view.jpg)
 
-### Configure 
+### Configure
 
 #### Password
 
 Freight Server automatically configures a password for you. You can change it by modifying the [dev.json](config/dev.json-dist) file.
 
+A password setting of `""` (empty string) indicates that the Freight Server will not require a password for any actions.
+
 #### Other Configuration
 
-See [config/config.js](config/config.js#L12) for available 
+See [config/config.js](config/config.js#L12) for available
 configuration options and environment variables. The Freight Server uses [node-convict](https://github.com/mozilla/node-convict) to manage configuration.
 
 ### Author
