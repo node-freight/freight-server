@@ -4,6 +4,7 @@
   "scripts": {
     "start": "redis-server & node ./bin/freight-server | bunyan -o short"
   },
+  "main": "./bin/freight-server",
   "dependencies": {
     "archiver": "^0.9.0",
     "async": "^0.9.0",

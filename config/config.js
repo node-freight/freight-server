@@ -8,7 +8,9 @@ module.exports = function () {
 
   // Check if we need to auto configure for a fast start.
   var env = process.env.NODE_ENV || 'dev';
-  require('./autoconfig')(env);
+  var configFile = process.env.FREIGHT_CONFIG || __dirname + '/' + env + '.json';
+
+  require('./autoconfig')(configFile);
 
   var conf = convict({
     env: {
@@ -45,13 +47,13 @@ module.exports = function () {
       // This directory is also used as a static file directory for Freight bundles.
       doc: 'Default bundle storage directory. Make sure it is somewhere in the Freight Server directory.',
       format: String,
-      default: 'storage'
+      default: __dirname + '/../storage'
     },
     tempDir: {
       // TODO: You need to create this directory if it does not exist.
       doc: 'Default directory for temporary files.',
       format: String,
-      default: 'temp'
+      default: __dirname + '/../temp'
     },
     // Redis config, see https://github.com/learnboost/kue#redis-connection-settings
     redis: {
@@ -87,7 +89,7 @@ module.exports = function () {
 
   // load environment dependent configuration
   // TODO: development only for now, change it later.
-  conf.loadFile('./config/' + env + '.json');
+  conf.loadFile(configFile);
   // perform configuration validation
   conf.validate();
 
