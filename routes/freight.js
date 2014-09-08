@@ -93,7 +93,7 @@ module.exports = function (log, conf) {
     if (req.body && req.body.repository && req.body.password && req.body.branch) {
       log.debug('Tracking request:', req.body);
 
-      if (!freightAuth.checkPassword(req.body.password)) {
+      if (! freightAuth.checkPassword(req.body.password)) {
         log.debug('Password does not match');
         return res.send(403);
       }

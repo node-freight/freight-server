@@ -6,4 +6,6 @@ services:
   - redis-server
 
 script:
+  - npm start &
+  - sleep 10
   - node_modules/.bin/grunt lint
