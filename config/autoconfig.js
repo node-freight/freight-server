@@ -3,7 +3,7 @@ var crypto = require('crypto');
 
 module.exports = function (expectedConfigFile) {
 
-  if (!fs.existsSync(expectedConfigFile)) {
+  if (! fs.existsSync(expectedConfigFile)) {
     var buf = crypto.randomBytes(256);
     var hash = crypto.createHash('sha1').update(buf).digest('hex');
 

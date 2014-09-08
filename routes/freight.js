@@ -19,7 +19,7 @@ module.exports = function (log, conf) {
   var FreightRoutes = {};
 
   FreightRoutes.check = function (req, res) {
-    if (!req.body && !req.body.project && !req.body.project.name) {
+    if (! req.body && ! req.body.project && ! req.body.project.name) {
       return res.send(404);
     }
 
@@ -54,7 +54,7 @@ module.exports = function (log, conf) {
         // TODO: delete stale jobs, try again to cache, fail if tries too many times.
         // TODO: job in progress with the same hash should stop this one.
         // TODO: restart stale job if timeout > x.
-        if (!bundleExists || extra.force === 'true') {
+        if (! bundleExists || extra.force === 'true') {
           response.creating = true;
           freighter.create(project, extra);
         }
