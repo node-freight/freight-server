@@ -28,7 +28,7 @@ module.exports = function (log, conf) {
         function (file, complete) {
           fs.stat(path.join(storage, file), function (err, stat) {
             stat.size = filesize(stat.size);
-            stat.download = path.join(storage, file);
+            stat.download = '/storage/' + file;
             stat.ctime = moment(stat.ctime).format('MMMM Do YYYY, h:mm:ss a');
             if (file.indexOf('tar.gz') > -1) {
               complete(err, { name: file, details: stat });

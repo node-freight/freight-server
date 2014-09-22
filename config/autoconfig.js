@@ -13,7 +13,7 @@ module.exports = function (expectedConfigFile) {
     console.log('Creating a configuration automatically for you....');
     console.log('Your Freight Server password is: \n');
     console.log(hash);
-    console.log('\n Use this password to generate bundles: \n "freight --url=http://example.com --create --password=' + hash + '"');
+    console.log('\n Use the password above to generate bundles.');
     var devSampleFile = JSON.parse(fs.readFileSync(__dirname + '/dev.json-dist'));
     devSampleFile.password = hash;
     fs.writeFileSync(expectedConfigFile, JSON.stringify(devSampleFile), null, 4);

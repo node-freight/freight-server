@@ -5,8 +5,12 @@ var conf = require('./config/config')();
 var log = require('./lib/log')(conf);
 var kue = require('kue');
 
+// TODO: move this? this is needed for the server to be able to track bundles
+process.env.FREIGHT_PASSWORD = conf.get('password');
+
 var index = require('./routes/index')(log, conf);
 var bundleDelete = require('./routes/bundle_delete')(log, conf);
+var bundleDownload = require('./routes/bundle_download')(log, conf);
 var freightRoutes = require('./routes/freight')(log, conf);
 var freightAuth = require('./lib/auth')(log, conf);
 
@@ -25,7 +29,7 @@ app.post('/freight/download', freightRoutes.download);
 app.post('/freight/track', freightRoutes.track);
 
 app.use('/static', express.static(path.join(__dirname, 'static')));
-app.use('/storage', express.static(path.join(__dirname, conf.get('storage'))));
+app.get('/storage/*', freightAuth.middleware, bundleDownload);
 app.get('/', freightAuth.middleware, index);
 // TODO: temporary, quick way to add delete
 app.get('/ui/delete/:file', freightAuth.middleware, bundleDelete);

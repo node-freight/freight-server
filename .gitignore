@@ -7,3 +7,4 @@ test/fixtures/project1/node_modules
 test/fixtures/project2/node_modules
 test/fixtures/project2/bower_components
 /temp
+/storage

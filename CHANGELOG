@@ -1,3 +1,9 @@
+v0.5.0:
+  date: 2014-09-21
+  changes:
+    - Portable configuration location for storage and other directories.
+    - Bug fix with bundle downloading through the user interface.
+    - Bug fix for empty bundles and errors. if Bower or NPM fail to install you get a failed job in the Kue log.
 v0.4.0:
   date: 2014-07-22
   changes:
