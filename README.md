@@ -30,6 +30,10 @@ A password setting of `""` (empty string) indicates that the Freight Server will
 See [config/config.js](config/config.js#L12) for available
 configuration options and environment variables. The Freight Server uses [node-convict](https://github.com/mozilla/node-convict) to manage configuration.
 
+### Notes
+
+* **Do not run server as a root user**. It is not safe and Bower will also complain that you are running as sudo.
+
 ### Author
 
 | [![twitter/vladikoff](https://avatars3.githubusercontent.com/u/128755?s=70)](https://twitter.com/vladikoff "Follow @vladikoff on Twitter") |
