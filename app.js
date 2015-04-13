@@ -21,8 +21,11 @@ app.log = log;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+var bodyParserOptions = {
+  limit: conf.get('limit') + 'kb'
+};
+app.use(bodyParser.json(bodyParserOptions));
+app.use(bodyParser.urlencoded(bodyParserOptions));
 
 app.post('/freight/check', freightRoutes.check);
 app.post('/freight/download', freightRoutes.download);

@@ -37,6 +37,11 @@ module.exports = function () {
       default: 8872,
       env: 'PORT'
     },
+    limit: {
+      doc: 'The bundle transmission size limit, in kb.',
+      format: 'nat',
+      default: 500
+    },
     password: {
       doc: 'The password that is used to create Freight bundles.',
       format: String,
