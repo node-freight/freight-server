@@ -1,6 +1,6 @@
 {
   "name": "freight-server",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "scripts": {
     "start": "redis-server & node ./bin/freight-server | bunyan -o short"
   },
