@@ -6,6 +6,11 @@ services:
   - redis-server
 
 script:
-  - npm start &
+  - npm install node-freight/freight#1788d251ac4
+  - NODE_ENV=test LOG_LEVEL=debug npm start &
   - sleep 10
   - node_modules/.bin/grunt lint
+  - git clone https://github.com/node-freight/freight.git && cd freight
+  - git checkout 1788d251ac4ff776ad597d06e2841638fa51463b
+  - npm i
+  - node_modules/.bin/mocha test/*.js --reporter=spec
