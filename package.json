@@ -13,6 +13,7 @@
     "bower": "1.4.1",
     "bunyan": "0.22.3",
     "convict": "0.4.2",
+    "cross-spawn-async": "^2.1.6",
     "express": "3.17.4",
     "filesize": "2.0.3",
     "freight": "0.5.2",
