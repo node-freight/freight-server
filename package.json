@@ -9,6 +9,7 @@
   "dependencies": {
     "archiver": "^1.0.0",
     "async": "2.0.0-rc.6",
+    "basic-auth": "1.0.4",
     "bluebird": "3.4.0",
     "body-parser": "1.15.1",
     "bower": "1.7.9",
